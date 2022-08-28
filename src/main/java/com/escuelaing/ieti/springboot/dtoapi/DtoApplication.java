@@ -1,4 +1,4 @@
-package com.escuelaing.ieti.dto;
+package com.escuelaing.ieti.springboot.dtoapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
