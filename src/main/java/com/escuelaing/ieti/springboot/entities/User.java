@@ -9,6 +9,14 @@ public class User {
     private String lastName;
     private Date createdAt;
 
+    public User(Integer id, String name, String email, String lastName, Date createdAt) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.lastName = lastName;
+        this.createdAt = createdAt;
+    }
+
     public Integer getId() {
         return id;
     }
