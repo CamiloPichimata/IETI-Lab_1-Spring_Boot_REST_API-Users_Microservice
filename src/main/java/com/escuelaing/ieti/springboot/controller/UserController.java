@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-//@RequestMapping("/api")
 public class UserController {
 
     @Autowired
@@ -25,18 +24,21 @@ public class UserController {
         this.userService = userService;
     }
 
-    //@GetMapping("/api")
-    @RequestMapping(method = RequestMethod.GET, value = "/api")
+    @GetMapping
     public ResponseEntity<List<UserDto>> getAll() {
-        System.out.println("Ingresa al @GetMapping \n");
+        System.out.println("Ingresa al @GetMapping");
         try {
             List<User> users = userService.getAll();
             ArrayList<UserDto> data = new ArrayList<UserDto>();
-            for (User u : users) {
-                data.add(modelMapper.map(u, UserDto.class));
+            if (!users.isEmpty()) {
+                for (User u : users) {
+                    data.add(modelMapper.map(u, UserDto.class));
+                }
             }
             return new ResponseEntity<List<UserDto>> (data, HttpStatus.OK);
         } catch (Exception e) {
+            System.out.println("\n------------------------------------------------------------------------------");
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -46,16 +48,27 @@ public class UserController {
         try {
             return new ResponseEntity<UserDto>(modelMapper.map(userService.findById(id), UserDto.class), HttpStatus.OK);
         } catch (Exception e) {
+            System.out.println("\n------------------------------------------------------------------------------");
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @PostMapping
     public ResponseEntity<UserDto> create( @RequestBody UserDto userDto ) {
+        System.out.println("\n@PostMapping");
         try {
-            userService.create(modelMapper.map(userDto, User.class));
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            User newUser = userService.create(modelMapper.map(userDto, User.class));
+            if (newUser != null) {
+                return new ResponseEntity<>(modelMapper.map(newUser, UserDto.class), HttpStatus.CREATED);
+            } else {
+                System.out.println("CONFLICT!!");
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+
         } catch (Exception e) {
+            System.out.println("\n------------------------------------------------------------------------------");
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -63,9 +76,15 @@ public class UserController {
     @PutMapping( "/{id}" )
     public ResponseEntity<UserDto> update( @RequestBody UserDto user, @PathVariable String id) {
         try {
-            userService.update(modelMapper.map(user, User.class), id);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            User usertemp = userService.update(modelMapper.map(user, User.class), id);
+            if (usertemp != null) {
+                return new ResponseEntity<>(modelMapper.map(usertemp, UserDto.class), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
         } catch (Exception e) {
+            System.out.println("\n------------------------------------------------------------------------------");
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -76,6 +95,8 @@ public class UserController {
             userService.deleteById(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
+            System.out.println("\n------------------------------------------------------------------------------");
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

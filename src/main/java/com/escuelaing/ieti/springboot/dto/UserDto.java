@@ -17,6 +17,9 @@ public class UserDto {
         this.createdAt = createdAt;
     }
 
+    public UserDto () {
+    }
+
     public Integer getId() {
         return id;
     }
