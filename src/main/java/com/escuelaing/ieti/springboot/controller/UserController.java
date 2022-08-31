@@ -26,7 +26,6 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<UserDto>> getAll() {
-        System.out.println("Ingresa al @GetMapping");
         try {
             List<User> users = userService.getAll();
             ArrayList<UserDto> data = new ArrayList<UserDto>();
@@ -46,23 +45,26 @@ public class UserController {
     @GetMapping( "/{id}" )
     public ResponseEntity<UserDto> findById( @PathVariable String id ) {
         try {
-            return new ResponseEntity<UserDto>(modelMapper.map(userService.findById(id), UserDto.class), HttpStatus.OK);
+            User userTemp = userService.findById(id);
+            if (userTemp != null) {
+                return new ResponseEntity<UserDto>(modelMapper.map(userTemp, UserDto.class), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
         } catch (Exception e) {
             System.out.println("\n------------------------------------------------------------------------------");
             e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PostMapping
     public ResponseEntity<UserDto> create( @RequestBody UserDto userDto ) {
-        System.out.println("\n@PostMapping");
         try {
             User newUser = userService.create(modelMapper.map(userDto, User.class));
             if (newUser != null) {
                 return new ResponseEntity<>(modelMapper.map(newUser, UserDto.class), HttpStatus.CREATED);
             } else {
-                System.out.println("CONFLICT!!");
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             }
 
@@ -76,9 +78,9 @@ public class UserController {
     @PutMapping( "/{id}" )
     public ResponseEntity<UserDto> update( @RequestBody UserDto user, @PathVariable String id) {
         try {
-            User usertemp = userService.update(modelMapper.map(user, User.class), id);
-            if (usertemp != null) {
-                return new ResponseEntity<>(modelMapper.map(usertemp, UserDto.class), HttpStatus.OK);
+            User userTemp = userService.update(modelMapper.map(user, User.class), id);
+            if (userTemp != null) {
+                return new ResponseEntity<>(modelMapper.map(userTemp, UserDto.class), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
