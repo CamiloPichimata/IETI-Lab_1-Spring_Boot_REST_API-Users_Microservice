@@ -25,7 +25,7 @@ Después de compilada la ejecución se corre la aplicación ejecutando el comand
 <img src='img/gradle_run.png'>
 
 ## Pruebas
-Después de realizadas las implementaciones correspondientes se realizan las prubas de los endoints del API usando la aplicación [Insomnia](https://insomnia.rest/download).
+Después de realizadas las implementaciones correspondientes se realizan las pruebas de los endpoints del API usando la aplicación [Insomnia](https://insomnia.rest/download).
 
 Las pruebas realizadas se presentan a continuación:
 ### - Create
