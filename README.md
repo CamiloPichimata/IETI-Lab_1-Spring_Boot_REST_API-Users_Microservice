@@ -16,7 +16,7 @@
 - Inyección de Dependencias.
 
 ## Desarrollo
-Después de realizadas las implementaciones correspondientes se realizan las prubas de los endoints del API usando la aplicación [Insomnia](https://insomnia.rest/download).
+Después de realizadas las implementaciones correspondientes se realizan las prubas de los endpoints del API usando la aplicación [Insomnia](https://insomnia.rest/download).
 
 Las pruebas realizadas se presentan a continuación:
 ### - Create
