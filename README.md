@@ -15,7 +15,16 @@
 - Modelo de Madurez de Richardson. 
 - Inyección de Dependencias.
 
-## Desarrollo
+## Ejecución
+Para poder ejecutar la aplicación desde la línea de comandos se debe tener en cuenta que en el archivo `build.gradle` se debe incluir el plugin *application* y se debe definir la clase principal de la aplicación al final del archivo declarando la etiqueta *mainClassName*.
+
+Teniendo en cuenta lo anterior, se procede a compilar la aplicación, para esto desde la carpeta raíz de esta se ejecuta el comando `gradle build` como se puede ver a continuación:
+<img src='img/gradle_build.png'>
+
+Después de compilada la ejecución se corre la aplicación ejecutando el comando `gradle run`, esto se puede ver a continuación:
+<img src='img/gradle_run.png'>
+
+## Pruebas
 Después de realizadas las implementaciones correspondientes se realizan las prubas de los endoints del API usando la aplicación [Insomnia](https://insomnia.rest/download).
 
 Las pruebas realizadas se presentan a continuación:
