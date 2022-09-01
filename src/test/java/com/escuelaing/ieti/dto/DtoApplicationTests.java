@@ -3,10 +3,10 @@ package com.escuelaing.ieti.dto;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class DtoApplicationTests {
 
-	@Test
+	//@Test
 	void contextLoads() {
 	}
 
